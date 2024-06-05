@@ -6,7 +6,7 @@
  *
  * @grid: The 3x3 grid to be printed
 */
-void print_grid(int grid[SIZE][SIZE])
+static void print_grid(int grid[SIZE][SIZE])
 {
 	int i, j;
 
@@ -55,7 +55,7 @@ int is_stable(int grid[SIZE][SIZE])
 void topple(int grid[SIZE][SIZE])
 {
 	int i, j;
-	int temp[SIZE][SIZE] = {0};
+	int temp[SIZE][SIZE] = {{0}};
 
 	for (i = 0; i < SIZE; i++)
 	{
