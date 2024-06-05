@@ -6,7 +6,7 @@
  *
  * @grid: The 3x3 grid to be printed
 */
-static void print_grid(int grid[SIZE][SIZE])
+void print_grid(int grid[SIZE][SIZE])
 {
 	int i, j;
 
