@@ -3,7 +3,7 @@
 
 #define SIZE 3
 #define MAX_GRAINS 3
-void print_grid(int grid[SIZE][SIZE]); // Remove 'static'
+void print_grid(int grid[SIZE][SIZE]);  /* Remove 'static' */
 
 int is_stable(int grid[SIZE][SIZE]);
 
