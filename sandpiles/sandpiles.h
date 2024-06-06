@@ -1,17 +1,13 @@
 #ifndef SANDPILES_H
 #define SANDPILES_H
 
-#define SIZE 3
-#define MAX_GRAINS 3
 
-static void print_grid(int grid[SIZE][SIZE])
-
-int is_stable(int grid[SIZE][SIZE]);
-
-void topple(int grid[SIZE][SIZE]);
-
-void sandpiles_sum(int grid1[SIZE][SIZE], int grid2[SIZE][SIZE]);
-
+#include <stddef.h>
+#include <stdio.h>
+void sandpiles_sum(int grid1[3][3], int grid2[3][3]);
+void printGrid(int grid[3][3]);
+int isStable(int grid[3][3]);
+void topple(int grid[3][3]);
 
 
 #endif /* SANDPILES_H */
