@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+
 /**
  * struct skiplist_s - Singly linked list with an express lane
  *
@@ -19,10 +20,10 @@
  */
 typedef struct skiplist_s
 {
-    int n;
-    size_t index;
-    struct skiplist_s *next;
-    struct skiplist_s *express;
+	int n;
+	size_t index;
+	struct skiplist_s *next;
+	struct skiplist_s *express;
 } skiplist_t;
 
 skiplist_t *create_skiplist(int *array, size_t size);

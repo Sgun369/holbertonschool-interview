@@ -1,38 +1,50 @@
 #include "search.h"
+
 /**
- * linear_skip - searches for a value in a sorted skip list of integers.
- * @list:a pointer to the head of the skip list to search in
- * @value:the value to search for
- * Return:a pointer on the first node where value is located
+ * linear_skip - search for value in skip list of integers
+ * @list: pointer
+ * @value: int
+ * Return: pointer or NULL
  */
 skiplist_t *linear_skip(skiplist_t *list, int value)
 {
-	skiplist_t *temp = list, *prev = NULL;
+	skiplist_t *current, *node, *temp;
 
-	if (!list)
+	if (list == 0)
 		return (NULL);
-	while (temp->express)
+	current = list;
+	while (current)
 	{
-		printf("Value checked at index [%lu] = [%d]\n", temp->index, temp->n);
-		if (temp->n >= value)
+		if (current->express == NULL)
+		{
+			node = current->express;
+			for (temp = list; temp; temp = temp->next)
+				if (temp->next == NULL)
+				{
+					printf("Value found between indexes [%lu] and [%lu]\n",
+						current->index, temp->index);
+					break;
+				}
 			break;
-		prev = temp;
-		temp = temp->express;
+		}
+		if (current->express->n >= value)
+		{
+			node = current->express;
+			printf("Value checked at index [%lu] = [%d]\n", node->index, node->n);
+			printf("Value found between indexes [%lu] and [%lu]\n",
+				current->index, node->index);
+			break;
+		}
+		current = current->express;
+		printf("Value checked at index [%lu] = [%d]\n", current->index, current->n);
 	}
-	if (!temp->express && temp->n < value)
+
+	while (current)
 	{
-		prev = temp;
-		while (temp->next)
-			temp = temp->next;
-	}
-	printf("Value found between indexes [%lu] and [%lu]\n",
-	prev ? prev->index : temp->index, temp->index);
-	while (prev && prev->index <= temp->index)
-	{
-		printf("Value checked at index [%lu] = [%d]\n", prev->index, prev->n);
-		if (prev->n == value)
-			return (prev);
-		prev = prev->next;
+		printf("Value checked at index [%lu] = [%d]\n", current->index, current->n);
+		if (current->n == value)
+			return (current);
+		current = current->next;
 	}
 	return (NULL);
 }
