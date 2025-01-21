@@ -28,6 +28,7 @@ int is_digit(char *str)
 int _strlen(char *str)
 {
 	int len = 0;
+
 	while (str[len])
 		len++;
 	return (len);
@@ -56,7 +57,7 @@ char *mul(char *num1, char *num2)
 
 	if (!result)
 		exit(98);
-	for (i = len1 - 1; i >= 0; i --)
+	for (i = len1 - 1; i >= 0; i--)
 	{
 		carry = 0;
 		n1 = num1[i] - '0';
@@ -65,7 +66,7 @@ char *mul(char *num1, char *num2)
 			n2 = num2[j] - '0';
 			sum = n1 * n2 + result[i + j + 1] + carry;
 			carry = sum / 10;
-			result[i+ j + 1] = sum % 10;
+			result[i + j + 1] = sum % 10;
 		}
 		result[i + j + 1] += carry;
 	}
@@ -78,7 +79,7 @@ char *mul(char *num1, char *num2)
 		i++;
 	if (i == len1 + len2)
 		product[j++] = '0';
-	while ( i < len1 + len2)
+	while (i < len1 + len2)
 		product[j++] = result[i++] + '0';
 	product[j] = '\0';
 	free(result);
