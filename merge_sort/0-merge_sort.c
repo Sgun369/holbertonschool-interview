@@ -1,75 +1,93 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "sort.h"
-
 /**
- * merge - Merges two subarrays into a sorted arrray
- * @array: The original array
- * @left: left subarray
- * @right: right subarray
- * @size_l: size of left subarray
- * @size_r: size of right subarray
+ * print_sub_array -  prints a subarray
+ * @array:pointer the array
+ * @size:size of the subarray
  */
-void merge(int *array, int *left, int *right, size_t size_l, size_t size_r)
+void print_sub_array(int *array, size_t size)
 {
-	size_t i = 0, j = 0, k = 0;
-	int *temp = malloc((size_l + size_r) * sizeof(int));
+	size_t i;
 
-	if (!temp)
-		return;
+	for (i = 0; i < size; i++)
+	{
+		if (i > 0)
+			printf(", ");
+		printf("%d", array[i]);
+	}
+	printf("\n");
+}
+/**
+ * merge - merges the left and right subarrays
+ * @array:pointer the array
+ * @left:pointer to the left subarray
+ * @right:pointer to the right subarray
+ * @start: start index of the left subarray
+ * @mid:index of the mid of the array
+ * @end:end index of the right subarray
+ */
+void merge(int *array, int *left, int *right, size_t start,
+size_t mid, size_t end)
+{
+	size_t i = 0, j  = 0, k = start, n_left = mid - start, n_right = end - mid;
 
-	printf("Merging...\n");
-	printf("[left]: ");
-	print_array(left, size_l);
+	printf("Merging...\n[left]: ");
+	print_sub_array(left, n_left);
 	printf("[right]: ");
-	print_array(right, size_r);
-
-	while (i < size_l && j < size_r)
+	print_sub_array(right, n_right);
+	while (i < n_left && j < n_right)
 	{
 		if (left[i] <= right[j])
-			temp[k++] = left[i++];
+			array[k++] = left[i++];
 		else
-			temp[k++] = right[j++];
+			array[k++] = right[j++];
 	}
-	while (i < size_l)
-		temp[k++] = left[i++];
-	while (j < size_r)
-		temp[k++] = right[j++];
-
-	for (i = 0; i < (size_l + size_r); i++)
-		array[i] = temp[i];
-
-	printf("[Done]:");
-	print_array(array, size_l + size_r);
-	free(temp);
+	while (i < n_left)
+		array[k++] = left[i++];
+	while (j < n_right)
+		array[k++] = right[j++];
+	printf("[Done]: ");
+	print_sub_array(array + start, end - start);
 }
 /**
- * merge_sort_recursive - recursively plits and sorts the array
- * @array: The array to be sorted
- * @size: size of the array
+ * merge_sort_rec -sorts an array of integers using
+ * the Merge Sort algorithm recursively
+ * @array:pointer the array
+ * @temp:pointer to the temp array
+ * @start:start index of the subarray
+ * @end:iend index of the subarray
  */
-void merge_sort_recursive(int *array, size_t size)
+void merge_sort_rec(int *array, int *temp, size_t start, size_t end)
 {
-	if (size < 2)
+	if (end - start <= 1)
 		return;
+	size_t mid = start + (end - start) / 2;
+	size_t i;
 
-	size_t mid = size / 2;
-	int *left = array;
-	int *right = array + mid;
+	merge_sort_rec(array, temp, start, mid);
+	merge_sort_rec(array, temp, mid, end);
+	int *left = temp + start;
+	int *right = temp + mid;
 
-	merge_sort_recursive(left, mid);
-	merge_sort_recursive(right, size - mid);
-	merge(array, left, right, mid, size - mid);
+	for (i = start; i < mid; i++)
+		left[i - start] = array[i];
+	for (i = mid; i < end; i++)
+		right[i - mid] = array[i];
+	merge(array, left, right, start, mid, end);
 }
 /**
- * merge_sort - sorts an array using merge sort algorithme
- * @array: the array to be sorted
- * @size: size of the array
+ * merge_sort -sorts an array of integers in ascending order
+ * using the Merge Sort algorithm
+ * @array:pointer the array
+ * @size:size of the array
  */
 void merge_sort(int *array, size_t size)
 {
-	if (!array || size < 2)
+	if (size <= 1)
 		return;
+	int *temp = malloc(size * sizeof(int));
 
-	merge_sort_recursive(array, size);
+	if (!temp)
+		return;
+	merge_sort_rec(array, temp, 0, size);
+	free(temp);
 }
