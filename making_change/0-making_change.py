@@ -15,7 +15,7 @@ def makeChange(coins, total):
         li = [total + 1] * (total + 1)
         li[0] = 0
         for coin in coins:
-            for amount in range(coin, total +1):
+            for amount in range(coin, total + 1):
                 li[amount] = min(li[amount], li[amount - coin] + 1)
         if li[total] != total + 1:
             return li[total]
