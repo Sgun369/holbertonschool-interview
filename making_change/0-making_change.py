@@ -10,10 +10,14 @@ def makeChange(coins, total):
     count = 0
 
     for coin in coins:
-        if total == 0:
-            break
-        num_coins = total // coin
-        count += num_coins
-        total -= num_coins * coin
-
-    return count if total == 0 else - 1
+        if total <= 0:
+            return 0
+        li = [total + 1] * (total + 1)
+        li[0] = 0
+        for coin in coins:
+            for amount in range(coin, total +1):
+                li[amount] = min(li[amount], li[amount - coin] + 1)
+        if li[total] != total + 1:
+            return li[total]
+        else:
+            return -1
