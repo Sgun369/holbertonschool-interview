@@ -1,5 +1,5 @@
 #ifndef LIST_H
-#define LIST_h
+#define LIST_H
 
 /**
  * struct List - doubly linked list
@@ -12,9 +12,9 @@
  */
 typedef struct List
 {
-  char *str;
-  struct List *prev;
-  struct List *next;
+	char *str;
+	struct List *prev;
+	struct List *next;
 } List;
 
 List *add_node_end(List **list, char *str);
