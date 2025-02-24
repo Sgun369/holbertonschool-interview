@@ -20,7 +20,7 @@ int get_max(int *array, size_t size)
 	return (max);
 }
 /**
- * counting_soer - performs counting sort on the array
+ * counting_sort - performs counting sort on the array
  * @array: The array to sort
  * @size: The size of the array
  * @exp: The exponent representing the currrent digit
