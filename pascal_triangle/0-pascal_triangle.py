@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+"""module pacal_triangle"""
+
+
 def pascal_triangle(n):
     """
     Generate Pascal's Triangle up to the nth row.
@@ -6,7 +10,7 @@ def pascal_triangle(n):
         return []
 
     triangle = [[1]]  # First row
-    
+
     for i in range(1, n):
         prev_row = triangle[-1]  # Last row of current triangle
         new_row = [1]  # Every row starts with 1
